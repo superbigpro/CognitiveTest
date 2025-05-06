@@ -1,97 +1,63 @@
-This is a new [**React Native**](https://reactnative.dev) project, bootstrapped using [`@react-native-community/cli`](https://github.com/react-native-community/cli).
+# CognitiveTest
 
-# Getting Started
+## 기능
 
-> **Note**: Make sure you have completed the [Set Up Your Environment](https://reactnative.dev/docs/set-up-your-environment) guide before proceeding.
+- 위에 위치한 심볼 패널을 보고 캐로셀에 나와있는 기호를 아래 다이얼에서 선택합니다.
+- 검사가 끝난 후 평균 반응 시간, 가장 빠른 반응시간 등의 정보를 표시합니다.
 
-## Step 1: Start Metro
+## 프로젝트 구조
 
-First, you will need to run **Metro**, the JavaScript build tool for React Native.
+- src/
 
-To start the Metro dev server, run the following command from the root of your React Native project:
+  - assets/ : 심볼 이미지 등 리소스 파일
 
-```sh
-# Using npm
-npm start
+  - components/ : UI 컴포넌트
 
-# OR using Yarn
-yarn start
+    - NumberDial.tsx : 숫자 선택 다이얼 UI
+    - QuestionCarousel.tsx : 문제 심볼을 보여주는 캐러셀
+    - ReferencePanel.tsx : 상단 심볼-숫자 참조 패널
+    - TestResultModal.tsx : 테스트 결과 모달
+
+  - constant/ : 앱에서 사용하는 상수값 정의
+
+    - 색상, 크기, 텍스트 등 하드코딩 방지
+
+  - libs/ : 비즈니스 로직 및 유틸리티 함수
+
+    - testUtils.ts : 테스트 데이터 생성, 결과 계산 함수
+    - testHandlers.ts : 이벤트 처리 로직 (숫자 선택 등)
+
+  - screens/ : 화면 단위 컴포넌트
+
+    - Test.tsx : 메인 테스트 화면 및 상태 관리
+
+  - types/ : 타입 정의
+    - index.ts : SymbolItem, ResponseTime 등 타입 정의
+
+### 주요 파일별 역할
+
+- **Test.tsx**:
+  앱의 핵심 화면으로 테스트 진행 상태, 점수 관리, 사용자 응답 처리를 담당합니다.
+  React useState를 통해 상태를 관리하며, 자식 컴포넌트들에게 props로 데이터 전달합니다.
+
+- **NumberDial.tsx**:
+  사용자가 숫자를 선택할 수 있는 다이얼 UI를 제공합니다.
+  사용자가 선택한 숫자는 Test 컴포넌트로 전달됩니다.
+
+- **testHandlers.ts**:
+  숫자 선택 시 실행되는 복잡한 로직을 분리해 관리합니다.
+  정답 체크, 응답 시간 기록, 테스트 완료 처리 등을 담당합니다.
+
+- **testUtils.ts**:
+  테스트 데이터 생성 및 결과 계산 관련 유틸리티 함수들을 포함합니다.
+  랜덤 문제 생성, 성능 통계 계산 등을 처리합니다.
+
+## 로컬에서 실행하기
+
+```bash
+git clone https://github.com/superbigpro/CognitiveTest
+
+npm install
+
+npm run ios / npm run android
 ```
-
-## Step 2: Build and run your app
-
-With Metro running, open a new terminal window/pane from the root of your React Native project, and use one of the following commands to build and run your Android or iOS app:
-
-### Android
-
-```sh
-# Using npm
-npm run android
-
-# OR using Yarn
-yarn android
-```
-
-### iOS
-
-For iOS, remember to install CocoaPods dependencies (this only needs to be run on first clone or after updating native deps).
-
-The first time you create a new project, run the Ruby bundler to install CocoaPods itself:
-
-```sh
-bundle install
-```
-
-Then, and every time you update your native dependencies, run:
-
-```sh
-bundle exec pod install
-```
-
-For more information, please visit [CocoaPods Getting Started guide](https://guides.cocoapods.org/using/getting-started.html).
-
-```sh
-# Using npm
-npm run ios
-
-# OR using Yarn
-yarn ios
-```
-
-If everything is set up correctly, you should see your new app running in the Android Emulator, iOS Simulator, or your connected device.
-
-This is one way to run your app — you can also build it directly from Android Studio or Xcode.
-
-## Step 3: Modify your app
-
-Now that you have successfully run the app, let's make changes!
-
-Open `App.tsx` in your text editor of choice and make some changes. When you save, your app will automatically update and reflect these changes — this is powered by [Fast Refresh](https://reactnative.dev/docs/fast-refresh).
-
-When you want to forcefully reload, for example to reset the state of your app, you can perform a full reload:
-
-- **Android**: Press the <kbd>R</kbd> key twice or select **"Reload"** from the **Dev Menu**, accessed via <kbd>Ctrl</kbd> + <kbd>M</kbd> (Windows/Linux) or <kbd>Cmd ⌘</kbd> + <kbd>M</kbd> (macOS).
-- **iOS**: Press <kbd>R</kbd> in iOS Simulator.
-
-## Congratulations! :tada:
-
-You've successfully run and modified your React Native App. :partying_face:
-
-### Now what?
-
-- If you want to add this new React Native code to an existing application, check out the [Integration guide](https://reactnative.dev/docs/integration-with-existing-apps).
-- If you're curious to learn more about React Native, check out the [docs](https://reactnative.dev/docs/getting-started).
-
-# Troubleshooting
-
-If you're having issues getting the above steps to work, see the [Troubleshooting](https://reactnative.dev/docs/troubleshooting) page.
-
-# Learn More
-
-To learn more about React Native, take a look at the following resources:
-
-- [React Native Website](https://reactnative.dev) - learn more about React Native.
-- [Getting Started](https://reactnative.dev/docs/environment-setup) - an **overview** of React Native and how setup your environment.
-- [Learn the Basics](https://reactnative.dev/docs/getting-started) - a **guided tour** of the React Native **basics**.
-- [Blog](https://reactnative.dev/blog) - read the latest official React Native **Blog** posts.
-- [`@facebook/react-native`](https://github.com/facebook/react-native) - the Open Source; GitHub **repository** for React Native.
